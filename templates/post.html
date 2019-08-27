@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block post_entries %}
+
+    <div class="post">
+        <h2>{{ object.titulo}}</h2>
+        <p class="meta">{{ object.data_criado }} - {{ object.autor}}</p>
+        {{ object.texto | linebreaks }}
+    </div>
+
+    <a class="btn btn-default" href="{% url 'comentario_novo' pk=post.pk %}">Novo Comentário</a>
+
+    {% for comentario in object.comentario_set.all %}
+        <div class="comment">
+            <div class="date">{{ comentario.data_criado | date:"d/m/Y H:i" }} | Autor: {{ comentario.autor }} |
+               {{ comentario.likes }} <a href="{% url 'comentario_like' pk=comentario.pk %}"><img src="/static/images/like.png" border="0" alt="Like"></a> -
+               {{ comentario.unlikes }} <a href="{% url 'comentario_unlike' pk=comentario.pk %}"><img src="/static/images/unlike.png" border="0" alt="Unlike"></a>
+            </div>
+            <p>{{ comentario.texto | linebreaks}}</p>
+        </div>
+    {% endfor %}
+
+{% endblock %}

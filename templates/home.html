@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block post_entries %}
+
+{% for object in object_list %}
+
+    <div class="post">
+        <h2><a href="{% url 'post' pk=object.pk %}">{{ object.titulo }}</a></h2>
+        <p class="meta">{{ object.data_criado }} | Autor: {{ object.autor}} | {{ object.comentario_set.count }} comentário(s)</p>
+        {{ object.texto | linebreaks }}
+    </div>
+
+{% endfor %}
+{% endblock %}
